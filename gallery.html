@@ -1,0 +1,39 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@2.6.1/dist/bootstrap-vue.min.js"></script>
+
+<link href="https://unpkg.com/bootstrap-vue@2.6.1/dist/bootstrap-vue.css" rel="stylesheet" />
+<script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
+<h1></h1><div id='root' class="grid">
+    <div v-for="image in images">
+      <img :src="image.thumbnailUrl"></div>
+     </div>
+                             
+     <script>
+     new Vue({
+       el: "#root",
+       data: {
+        
+         trans: '/w_200/',
+         active : true,
+         images :[],
+     id :"",
+       },
+  
+  mounted () {
+    let urlParams = new URLSearchParams(window.location.search);
+this.id = urlParams.get('id');
+
+       fetch('https://jsonplaceholder.typicode.com/albums/'+this.id+'/photos')
+    .then(response => {
+     return response.json();
+   })
+   .then(data => {
+     // Work with JSON data here
+     console.log(data);
+         this.images = data ;
+   })
+   .catch(err => {
+         // Do something for an error here ¯\_(ツ)_/¯
+   });
+   }});
+</script> 
